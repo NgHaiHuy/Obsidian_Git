@@ -1,0 +1,1 @@
+![[Chapter 4_Applications Of Derivatives.ppt]]
