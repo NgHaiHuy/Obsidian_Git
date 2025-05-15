@@ -87,5 +87,3 @@ int main() {
 |string|`%s`|`%s`|
 
 ---
-
-Nếu bạn muốn mình tạo ví dụ cụ thể cho một bài toán (cộng 2 số, nhập tên, v.v.) thì cứ nói nhé!

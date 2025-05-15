@@ -207,6 +207,3 @@ fclose(f);
 |File|lưu/trích xuất dữ liệu|đọc/ghi từ file|
 
 ---
-
-👉 **Bạn muốn mình gửi bộ bài tập cụ thể + lời giải mẫu cho từng phần không?**  
-(Mỗi bài sẽ có đề + hướng dẫn từng bước chuyển từ JS sang C nếu bạn cần)
