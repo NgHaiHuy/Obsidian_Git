@@ -5,3 +5,5 @@
 4. Viết code
 5. Kiểm thử
 6. Vận hành
+Bits 
+1 byte = 8 bits
