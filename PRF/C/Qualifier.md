@@ -95,9 +95,4 @@ extern int count;  // Khai báo
 
 ---
 
-Nếu bạn muốn, mình có thể:
-
-- Làm ví dụ minh họa thực tế cho từng qualifier.
-    
-- So sánh với cách dùng trong C++ (ví dụ: `const`, `static`, `mutable`, v.v.)
     
