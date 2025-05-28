@@ -68,7 +68,7 @@ Trong ngôn ngữ C, **string** (chuỗi) là một mảng các ký tự (`char`
       printf("Hai chuỗi giống nhau.\n");
   }
   ```
-  - Trả về `0` nếu giống nhau, giá trị âm/dương nếu khác nhau.
+  - Trả về `0` nếu giống nhau, giá trị âm nếu str1 nhỏ hơn str2 và dương nếu str1 lớn hơn str2.
 
 #### **d. Độ dài chuỗi: `strlen`**
 - **Ví dụ**:
