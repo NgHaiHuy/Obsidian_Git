@@ -1,158 +1,180 @@
-Trong ngôn ngữ C, **string** (chuỗi) là một mảng các ký tự (`char`) kết thúc bằng ký tự **null** (`'\0'`). Dưới đây là phân tích chi tiết về string trong C, bao gồm khai báo, cách sử dụng, và các hàm thư viện phổ biến.
 
 ---
 
-### **1. Khai báo và Khởi tạo String**
-- **String là mảng ký tự**:  
-  ```c
-  char str1[10];          // Khai báo mảng 10 ký tự (chưa khởi tạo)
-  char str2[] = "Hello";  // Khởi tạo với giá trị "Hello" (tự động thêm '\0')
-  char str3[6] = {'H', 'e', 'l', 'l', 'o', '\0'};  // Khởi tạo từng ký tự
-  ```
+### ✅ **1. Chuỗi là gì trong C?**
 
-- **Lưu ý**:
-  - Ký tự `'\0'` đánh dấu kết thúc chuỗi. Nếu thiếu, các hàm xử lý chuỗi có thể gặp lỗi.
-  - Kích thước mảng phải đủ lớn để chứa chuỗi + `'\0'`. Ví dụ: `"Hello"` cần mảng tối thiểu 6 phần tử.
+Trong C, **chuỗi (string)** là một **mảng các ký tự** (`char[]`) được **kết thúc bằng ký tự null** `'\0'`.  
+Ví dụ:
+
+```c
+char s[] = "Hello";  // Thực chất là {'H', 'e', 'l', 'l', 'o', '\0'}
+```
 
 ---
 
-### **2. Nhập/Xuất String**
-- **Sử dụng `scanf` và `printf`**:
-  ```c
-  char name[20];
-  printf("Nhập tên: ");
-  scanf("%s", name);      // Dừng khi gặp khoảng trắng
-  printf("Tên: %s\n", name);
-  ```
+### ✅ **2. Khai báo và Khởi tạo String**
 
-- **Nhập chuỗi có khoảng trắng** (dùng `fgets`):
-  ```c
-  fgets(name, sizeof(name), stdin);  // Đọc cả dòng (kể cả khoảng trắng)
-  ```
+```c
+char str1[10];                      // Khai báo, chưa gán giá trị
+char str2[] = "Hello";             // Tự động thêm '\0'
+char str3[6] = {'H','e','l','l','o','\0'};  // Rõ ràng
+```
 
-- **Lưu ý**:
-  - `scanf` không an toàn với chuỗi dài hơn kích thước mảng. Có thể dùng `%19s` để giới hạn.
-  - `fgets` lưu cả ký tự `\n` (xuống dòng), cần xóa nếu không mong muốn.
+📌 **Lưu ý:**
+
+- Ký tự `'\0'` rất quan trọng, dùng để đánh dấu kết thúc chuỗi.
+    
+- Nếu không có `'\0'`, các hàm thao tác chuỗi sẽ bị lỗi hoặc đọc vượt giới hạn.
+    
 
 ---
 
-### **3. Các Hàm Thư Viện `<string.h>`**
-#### **a. Sao chép chuỗi: `strcpy`, `strncpy`**
-- **`strcpy`**:
-  ```c
-  char src[] = "Source";
-  char dest[10];
-  strcpy(dest, src);  // dest = "Source"
-  ```
-  - **Lưu ý**: Kiểm tra kích thước mảng đích để tránh tràn bộ nhớ.
+### ✅ **3. Nhập / Xuất Chuỗi**
 
-- **`strncpy`** (an toàn hơn):
-  ```c
-  strncpy(dest, src, sizeof(dest) - 1);  // Sao chép tối đa (kích thước đích - 1)
-  dest[sizeof(dest) - 1] = '\0';         // Đảm bảo kết thúc chuỗi
-  ```
+#### Dùng `scanf` (không đọc được khoảng trắng):
 
-#### **b. Nối chuỗi: `strcat`, `strncat`**
-- **`strcat`**:
-  ```c
-  char str1[20] = "Hello";
-  char str2[] = " World";
-  strcat(str1, str2);  // str1 = "Hello World"
-  ```
-  - **Lưu ý**: Đảm bảo mảng đích đủ lớn.
+```c
+char name[20];
+scanf("%s", name);
+```
 
-#### **c. So sánh chuỗi: `strcmp`, `strncmp`**
-- **`strcmp`**:
-  ```c
-  if (strcmp(str1, str2) == 0) {
-      printf("Hai chuỗi giống nhau.\n");
-  }
-  ```
-  - Trả về `0` nếu giống nhau, giá trị âm nếu str1 nhỏ hơn str2 và dương nếu str1 lớn hơn str2.
+#### Dùng `fgets` (đọc được cả dòng có khoảng trắng):
 
-#### **d. Độ dài chuỗi: `strlen`**
-- **Ví dụ**:
-  ```c
-  int len = strlen("Hello");  // len = 5
-  ```
+```c
+fgets(name, sizeof(name), stdin);
+name[strcspn(name, "\n")] = '\0';  // Xoá ký tự newline nếu có
+```
+
+📌 **Lưu ý:**
+
+- `scanf` không giới hạn độ dài → dễ gây tràn bộ nhớ
+    
+- `fgets` an toàn hơn, nên dùng trong hầu hết trường hợp
+    
 
 ---
 
-### **4. Mảng String (Mảng 2 chiều)**
-- **Khai báo**:
-  ```c
-  char names[3][20] = {"Alice", "Bob", "Charlie"};
-  ```
-- **Truy cập**:
-  ```c
-  printf("Tên thứ 2: %s\n", names[1]);  // "Bob"
-  ```
+### ✅ **4. Các hàm xử lý chuỗi – `#include <string.h>`**
+
+|Hàm|Mô tả|
+|---|---|
+|`strcpy(dest, src)`|Sao chép chuỗi|
+|`strncpy(dest, src, n)`|Sao chép n ký tự|
+|`strcat(dest, src)`|Nối chuỗi|
+|`strncat(dest, src, n)`|Nối n ký tự|
+|`strcmp(s1, s2)`|So sánh hai chuỗi|
+|`strncmp(s1, s2, n)`|So sánh n ký tự|
+|`strlen(s)`|Trả về độ dài chuỗi (không tính `'\0'`)|
+|`strchr(s, ch)`|Tìm ký tự đầu tiên xuất hiện|
+|`strstr(s1, s2)`|Tìm chuỗi con|
 
 ---
 
-### **5. Con trỏ và String**
-- **String có thể được truy cập qua con trỏ**:
-  ```c
-  char *ptr = "Hello";  // Con trỏ trỏ đến chuỗi hằng (không thể thay đổi nội dung)
-  printf("%s\n", ptr);  // In ra "Hello"
-  ```
+### ✅ **5. Các hàm kiểm tra ký tự – `#include <ctype.h>`**
 
-- **Lưu ý**:
-  - Chuỗi hằng (`"Hello"`) lưu trong bộ nhớ chỉ đọc (segmentation fault nếu cố ghi).
-  - Để thay đổi nội dung, dùng mảng:
-    ```c
-    char arr[] = "Hello";
-    arr[0] = 'h';  // Hợp lệ
-    ```
+|Hàm|Chức năng|
+|---|---|
+|`isalpha(c)`|Kiểm tra có phải chữ cái không (a-zA-Z)|
+|`isdigit(c)`|Kiểm tra có phải chữ số không (0-9)|
+|`isspace(c)`|Kiểm tra có phải khoảng trắng (space, tab, newline)|
+|`islower(c)`|Kiểm tra chữ thường|
+|`isupper(c)`|Kiểm tra chữ hoa|
+|`isalnum(c)`|Kiểm tra là chữ cái hoặc số|
+|`ispunct(c)`|Kiểm tra là ký tự đặc biệt|
+|`tolower(c)`|Chuyển ký tự sang chữ thường|
+|`toupper(c)`|Chuyển ký tự sang chữ hoa|
+
+📌 **Ví dụ phân loại ký tự trong chuỗi**:
+
+```c
+for (int i = 0; str[i] != '\0'; i++) {
+    if (isalpha(str[i])) printf("Chữ cái\n");
+    else if (isdigit(str[i])) printf("Chữ số\n");
+    else if (isspace(str[i])) printf("Khoảng trắng\n");
+    else printf("Ký tự đặc biệt\n");
+}
+```
 
 ---
 
-### **6. Ví dụ Tổng Hợp**
+### ✅ **6. Mảng chuỗi (mảng 2 chiều)**
+
+```c
+char names[3][20] = {"Alice", "Bob", "Charlie"};
+printf("Tên thứ hai: %s\n", names[1]);  // In ra "Bob"
+```
+
+📌 Mỗi hàng là một chuỗi riêng biệt. Có thể dùng vòng lặp để duyệt từng chuỗi.
+
+---
+
+### ✅ **7. Con trỏ và chuỗi**
+
+```c
+char *s = "Hello";  // trỏ tới chuỗi hằng
+printf("%s\n", s);
+```
+
+🔒 Không thể thay đổi nội dung nếu chuỗi là hằng.
+
+```c
+char arr[] = "Hello";
+arr[0] = 'h';  // ✅ Hợp lệ
+```
+
+---
+
+### ✅ **8. Lỗi thường gặp**
+
+|Lỗi|Giải thích|
+|---|---|
+|**Thiếu `'\0'`**|Gây lỗi khi in hoặc thao tác chuỗi|
+|**Dùng `scanf` không an toàn**|Có thể nhập vượt giới hạn mảng|
+|**Gán chuỗi bằng phép gán**|Không thể `str1 = str2` (dùng `strcpy`)|
+|**So sánh chuỗi bằng `==`**|So sánh địa chỉ, không so sánh nội dung|
+
+---
+
+### ✅ **9. Ví dụ tổng hợp**
+
 ```c
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 int main() {
-    char s1[20] = "Hello";
-    char s2[20];
+    char str[100];
+    int chu = 0, so = 0, dacbiet = 0;
 
-    // Sao chép và nối chuỗi
-    strcpy(s2, s1);
-    strcat(s2, " World!");
-    printf("s2: %s\n", s2);  // "Hello World!"
+    printf("Nhập chuỗi: ");
+    fgets(str, sizeof(str), stdin);
 
-    // So sánh
-    if (strcmp(s1, s2) != 0) {
-        printf("s1 và s2 khác nhau.\n");
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isalpha(str[i]))
+            chu++;
+        else if (isdigit(str[i]))
+            so++;
+        else if (!isspace(str[i]))
+            dacbiet++;
     }
 
-    // Độ dài
-    printf("Độ dài s2: %zu\n", strlen(s2));  // 12
+    printf("Chữ cái: %d\n", chu);
+    printf("Chữ số: %d\n", so);
+    printf("Ký tự đặc biệt: %d\n", dacbiet);
+    printf("Độ dài chuỗi: %zu\n", strlen(str));
     return 0;
 }
 ```
 
 ---
 
-### **7. Lỗi Thường Gặp**
-1. **Quên `'\0'`**:
-   ```c
-   char s[3] = {'A', 'B', 'C'};  // Không phải string hợp lệ (thiếu '\0')
-   ```
-2. **Tràn bộ nhớ**:
-   ```c
-   char s[5];
-   strcpy(s, "Hello World");  // Lỗi tràn
-   ```
-3. **Nhập với `scanf` không giới hạn**:
-   ```c
-   scanf("%s", s);  // Nguy hiểm nếu người dùng nhập quá dài
-   ```
+### ✅ **10. Tóm tắt**
+
+|Chủ đề|Nội dung|
+|---|---|
+|Kiểu dữ liệu|`char[]`, kết thúc bằng `'\0'`|
+|Nhập|Dùng `fgets` để an toàn|
+|Xử lý|Dùng `<string.h>` và `<ctype.h>`|
+|Cần tránh|So sánh bằng `==`, gán trực tiếp, thiếu `'\0'`|
 
 ---
-
-### **Tóm tắt**
-- **String trong C** là mảng ký tự kết thúc bằng `'\0'`.
-- **Thư viện `<string.h>`** cung cấp các hàm xử lý chuỗi như `strcpy`, `strcat`, `strcmp`, `strlen`.
-- **Luôn kiểm tra kích thước mảng** để tránh tràn bộ nhớ.
-- **Sử dụng `fgets` thay vì `scanf`** để nhập chuỗi có khoảng trắng an toàn.
