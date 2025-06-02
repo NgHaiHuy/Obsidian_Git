@@ -38,17 +38,17 @@ Dưới đây là bản **tổng hợp đầy đủ tất cả các thư viện 
 
 ## 📙 `<string.h>` – Xử lý chuỗi
 
-|Hàm|Mô tả|Ví dụ|
-|---|---|---|
-|`strlen()`|Độ dài chuỗi|`strlen("abc");`|
-|`strcpy()` / `strncpy()`|Sao chép chuỗi|`strcpy(dest, src);`|
-|`strcat()` / `strncat()`|Nối chuỗi|`strcat(s1, s2);`|
-|`strcmp()` / `strncmp()`|So sánh chuỗi|`strcmp(a, b);`|
-|`strchr()` / `strrchr()`|Tìm ký tự|`strchr(s, 'a');`|
-|`strstr()`|Tìm chuỗi con|`strstr(s, "abc");`|
-|`strtok()`|Tách chuỗi|`strtok(s, " ,");`|
-|`memcpy()` / `memmove()`|Sao chép vùng nhớ|`memcpy(d, s, n);`|
-|`memset()`|Gán vùng nhớ|`memset(arr, 0, 100);`|
+| Hàm                      | Mô tả             | Ví dụ                  |
+| ------------------------ | ----------------- | ---------------------- |
+| `strlen()`               | Độ dài chuỗi      | `strlen("abc");`       |
+| `strcpy()` / `strncpy()` | Sao chép chuỗi    | `strcpy(dest, src);`   |
+| `strcat()` / `strncat()` | Nối chuỗi         | `strcat(s1, s2);`      |
+| `strcmp()` / `strncmp()` | So sánh chuỗi     | `strcmp(a, b);`        |
+| `strchr()` / `strrchr()` | Tìm ký tự         | `strchr(s, 'a');`      |
+| `strstr()`               | Tìm chuỗi con     | `strstr(s, "abc");`    |
+| `strtok()`               | Tách chuỗi        | `strtok(s, " ,");`     |
+| `memcpy()` / `memmove()` | Sao chép vùng nhớ | `memcpy(d, s, n);`     |
+| `memset()`               | Gán vùng nhớ      | `memset(arr, 0, 100);` |
 
 ---
 
