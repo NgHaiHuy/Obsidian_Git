@@ -1,136 +1,144 @@
-Trong ngôn ngữ lập trình C, có nhiều **thư viện chuẩn** (standard libraries) cung cấp sẵn các hàm giúp bạn xử lý các công việc thường gặp như nhập xuất, xử lý chuỗi, toán học, làm việc với tệp tin, v.v.
-
-Dưới đây là một số **thư viện phổ biến nhất trong C**:
-
----
-
-### 📌 1. `#include <stdio.h>`
-
-**(Standard Input Output)**  
-Dùng để nhập và xuất dữ liệu.  
-🔹 Các hàm tiêu biểu:
-
-- `printf()` – in ra màn hình
-    
-- `scanf()` – đọc dữ liệu từ bàn phím
-    
-- `fopen(), fclose(), fread(), fwrite()` – thao tác với file
-    
+Dưới đây là bản **tổng hợp đầy đủ tất cả các thư viện chuẩn C cơ bản**, bao gồm:  
+📁 Nhập/xuất (`<stdio.h>`), chuỗi (`<string.h>`), toán học (`<math.h>`), xử lý bộ nhớ & hệ thống (`<stdlib.h>`), xử lý ký tự (`<ctype.h>`), thời gian (`<time.h>`), boolean (`<stdbool.h>`), giới hạn kiểu dữ liệu (`<limits.h>`, `<float.h>`), và các thư viện tiện ích khác.
 
 ---
 
-### 📌 2. `#include <stdlib.h>`
+## 📘 `<stdio.h>` – Nhập xuất chuẩn
 
-**(Standard Library)**  
-Chứa các hàm tiện ích tổng quát.  
-🔹 Các hàm tiêu biểu:
-
-- `malloc(), calloc(), free()` – cấp phát/buông bộ nhớ
-    
-- `atoi(), atof()` – chuyển đổi chuỗi thành số
-    
-- `rand(), srand()` – sinh số ngẫu nhiên
-    
-- `exit()` – thoát chương trình
-    
-
----
-
-### 📌 3. `#include <string.h>`
-
-**(String handling)**  
-Xử lý chuỗi ký tự (mảng `char[]`).  
-🔹 Các hàm tiêu biểu:
-
-- `strcpy(), strncpy()` – sao chép chuỗi
-    
-- `strlen()` – độ dài chuỗi
-    
-- `strcmp()` – so sánh chuỗi
-    
-- `strcat()` – nối chuỗi
-    
+|Hàm|Mô tả|Ví dụ|
+|---|---|---|
+|`printf()`|In ra màn hình|`printf("Hello %d", 5);`|
+|`scanf()`|Nhập từ bàn phím|`int x; scanf("%d", &x);`|
+|`putchar()`|In ký tự|`putchar('A');`|
+|`getchar()`|Nhập ký tự|`char c = getchar();`|
+|`puts()`|In chuỗi + xuống dòng|`puts("Xin chào");`|
+|`gets()` _(không an toàn)_|Nhập chuỗi|`gets(s);`|
+|`fopen()` / `fclose()`|Mở/đóng file|`FILE *f = fopen("a.txt", "r");`|
+|`fgetc()` / `fputc()`|Đọc/ghi ký tự|`fputc('A', f);`|
+|`fgets()` / `fputs()`|Đọc/ghi dòng|`fgets(buf, 100, f);`|
+|`fprintf()` / `fscanf()`|Đọc/ghi có định dạng|`fprintf(f, "%d", x);`|
+|`fseek()` / `ftell()` / `rewind()`|Điều hướng con trỏ file|`fseek(f, 0, SEEK_SET);`|
+|`remove()` / `rename()`|Xoá hoặc đổi tên file|`remove("a.txt");`|
 
 ---
 
-### 📌 4. `#include <math.h>`
+## 📗 `<stdlib.h>` – Thư viện chuẩn
 
-**(Math functions)**  
-Các hàm toán học.  
-🔹 Các hàm tiêu biểu:
+|Hàm|Mô tả|Ví dụ|
+|---|---|---|
+|`malloc()` / `calloc()` / `realloc()` / `free()`|Quản lý bộ nhớ|`int *p = malloc(10*sizeof(int));`|
+|`exit()`|Thoát chương trình|`exit(1);`|
+|`atoi()` / `atof()`|Chuỗi → số|`atoi("123");`|
+|`rand()` / `srand()`|Số ngẫu nhiên|`srand(time(NULL)); rand();`|
+|`abs()`|Giá trị tuyệt đối nguyên|`abs(-10);`|
+|`system()`|Gọi lệnh hệ thống|`system("cls");`|
+|`qsort()` / `bsearch()`|Sắp xếp và tìm kiếm|`qsort(arr, n, sz, cmp);`|
 
-- `sqrt()` – căn bậc hai
-    
-- `pow(a, b)` – lũy thừa a^b
-    
-- `sin(), cos(), tan()` – lượng giác
-    
-- `fabs()` – trị tuyệt đối
-    
+---
 
-📝 Lưu ý: Khi dùng `math.h`, biên dịch với `-lm` nếu dùng GCC:
+## 📙 `<string.h>` – Xử lý chuỗi
 
-```bash
-gcc mycode.c -lm
+|Hàm|Mô tả|Ví dụ|
+|---|---|---|
+|`strlen()`|Độ dài chuỗi|`strlen("abc");`|
+|`strcpy()` / `strncpy()`|Sao chép chuỗi|`strcpy(dest, src);`|
+|`strcat()` / `strncat()`|Nối chuỗi|`strcat(s1, s2);`|
+|`strcmp()` / `strncmp()`|So sánh chuỗi|`strcmp(a, b);`|
+|`strchr()` / `strrchr()`|Tìm ký tự|`strchr(s, 'a');`|
+|`strstr()`|Tìm chuỗi con|`strstr(s, "abc");`|
+|`strtok()`|Tách chuỗi|`strtok(s, " ,");`|
+|`memcpy()` / `memmove()`|Sao chép vùng nhớ|`memcpy(d, s, n);`|
+|`memset()`|Gán vùng nhớ|`memset(arr, 0, 100);`|
+
+---
+
+## 📐 `<math.h>` – Hàm toán học
+
+|Hàm|Mô tả|Ví dụ|
+|---|---|---|
+|`sqrt()`|Căn bậc hai|`sqrt(9.0);`|
+|`pow()`|Lũy thừa|`pow(2, 3);`|
+|`sin()` / `cos()` / `tan()`|Lượng giác|`sin(PI);`|
+|`log()` / `log10()` / `exp()`|Logarit và mũ|`log(10);`|
+|`fabs()`|Giá trị tuyệt đối|`fabs(-3.5);`|
+|`ceil()` / `floor()` / `round()`|Làm tròn|`ceil(2.3);`|
+|`fmod()`|Phần dư số thực|`fmod(5.3, 2);`|
+
+---
+
+## 🔤 `<ctype.h>` – Xử lý ký tự
+
+|Hàm|Mô tả|Ví dụ|
+|---|---|---|
+|`isalpha()`|Là chữ cái|`isalpha('A');`|
+|`isdigit()`|Là chữ số|`isdigit('7');`|
+|`isalnum()`|Là chữ hoặc số|`isalnum('a');`|
+|`islower()` / `isupper()`|Thường/in hoa|`islower('c');`|
+|`isspace()`|Khoảng trắng|`isspace(' ');`|
+|`isprint()`|In được|`isprint('#');`|
+|`ispunct()`|Ký hiệu|`ispunct('.');`|
+|`isxdigit()`|Hex|`isxdigit('F');`|
+|`toupper()` / `tolower()`|Đổi hoa/thường|`toupper('a');`|
+
+---
+
+## ⏰ `<time.h>` – Làm việc với thời gian
+
+|Hàm|Mô tả|Ví dụ|
+|---|---|---|
+|`time()`|Lấy thời gian hiện tại|`time_t now = time(NULL);`|
+|`clock()`|Thời gian CPU đã dùng|`clock_t t = clock();`|
+|`localtime()`|Chuyển `time_t` → `struct tm`|`localtime(&now);`|
+|`difftime()`|Tính khoảng cách thời gian|`difftime(t2, t1);`|
+|`strftime()`|Định dạng thời gian|`strftime(buf, 100, "%H:%M", tm);`|
+
+---
+
+## ✅ `<stdbool.h>` – Kiểu boolean (chuẩn từ C99)
+
+|Thành phần|Mô tả|
+|---|---|
+|`bool`|Kiểu logic|
+|`true`|Giá trị đúng|
+|`false`|Giá trị sai|
+
+**Ví dụ:**
+
+```c
+#include <stdbool.h>
+bool isEven = true;
+if (isEven) printf("Chẵn");
 ```
 
 ---
 
-### 📌 5. `#include <ctype.h>`
+## 📏 `<limits.h>` và `<float.h>` – Giới hạn kiểu dữ liệu
 
-**(Character type)**  
-Xử lý ký tự đơn lẻ.  
-🔹 Các hàm tiêu biểu:
+|Macro|Ý nghĩa|
+|---|---|
+|`INT_MAX`, `INT_MIN`|Giới hạn int|
+|`LONG_MAX`, `LONG_MIN`|Giới hạn long|
+|`FLT_MAX`, `FLT_MIN`|Giới hạn float|
+|`DBL_MAX`, `DBL_MIN`|Giới hạn double|
 
-- `isalpha(), isdigit()` – kiểm tra loại ký tự
-    
-- `toupper(), tolower()` – đổi chữ hoa/thường
-    
+**Ví dụ:**
 
----
-
-### 📌 6. `#include <time.h>`
-
-**(Time and date)**  
-Làm việc với thời gian.  
-🔹 Các hàm tiêu biểu:
-
-- `time()` – lấy thời gian hiện tại
-    
-- `clock()` – đếm thời gian CPU sử dụng
-    
-- `localtime()` – chuyển thời gian thành dạng `struct tm`
-    
+```c
+#include <limits.h>
+#include <float.h>
+printf("%d\n", INT_MAX);
+printf("%f\n", FLT_MIN);
+```
 
 ---
 
-### 📌 7. `#include <stdbool.h>`
+## 🧩 Một số thư viện khác hữu ích
 
-**(Boolean type)**  
-Giúp dùng kiểu `bool`, `true`, `false` (chuẩn từ C99).
-
----
-
-### 📌 8. `#include <limits.h>` và `#include <float.h>`
-
-Chứa giá trị giới hạn của kiểu số nguyên và số thực như:
-
-- `INT_MAX`, `INT_MIN`
-    
-- `FLT_MAX`, `DBL_MIN`
-    
-
----
-
-### 📌 Một số thư viện khác:
-
-- `<errno.h>` – xử lý mã lỗi
-    
-- `<assert.h>` – kiểm tra điều kiện trong khi chạy (debug)
-    
-- `<stdarg.h>` – xử lý hàm có số lượng tham số không cố định (như `printf`)
-    
-- `<stddef.h>` – định nghĩa các kiểu như `size_t`, `NULL`
-    
+|Thư viện|Mô tả|
+|---|---|
+|`<errno.h>`|Xử lý mã lỗi toàn cục|
+|`<assert.h>`|Kiểm tra điều kiện khi debug (`assert()`)|
+|`<stdarg.h>`|Xử lý hàm có số tham số không cố định|
+|`<stddef.h>`|Định nghĩa kiểu `size_t`, `NULL`, `offsetof()`|
 
 ---
