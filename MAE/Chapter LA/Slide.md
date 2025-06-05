@@ -1,130 +1,107 @@
-Dưới đây là đề xuất 15 slide dựa trên nội dung Chương 8: Input/Output (I/O), kết hợp cập nhật công nghệ mới và bố cục rõ ràng:
+Dưới đây là bản phân tích chi tiết từng phần từ **8.1 đến 8.10**, trình bày rõ ràng theo từng section của slide:
 
 ---
 
-### **Slide 1: Tiêu đề**  
-**Chương 8: Input/Output (I/O)**  
-- Môn học: Tổ chức và Kiến trúc Máy tính   
-- Hình nền: Máy tính kết nối với nhiều thiết bị ngoại vi.  
-
----
-
-### **Slide 2: Mục tiêu bài học**  
-1. Hiểu vai trò của I/O trong hệ thống máy tính.  
-2. Phân biệt các kỹ thuật I/O: Programmed, Interrupt-Driven, DMA, DCA.  
-3. Nhận diện các chuẩn kết nối ngoại vi phổ biến (USB, Thunderbolt, Ethernet).  
-4. Đánh giá xu hướng phát triển I/O hiện đại.  
-
----
-
-### **Slide 3: Tổng quan về I/O**  
-- **Định nghĩa**: Cầu nối trao đổi dữ liệu giữa máy tính và môi trường bên ngoài.  
+### **8.1: Giới thiệu về I/O (Input/Output)**
+- **Mục đích**:  
+  - Trao đổi dữ liệu giữa máy tính và thế giới bên ngoài (thiết bị, người dùng, mạng).  
 - **Thành phần chính**:  
-  - Thiết bị ngoại vi (Peripheral Devices).  
-  - I/O Module (trung gian điều khiển).  
-- **Hình ảnh**: Minh họa Hình 8.1 từ slide (Generic Model of an I/O Module).  
+  - **Thiết bị ngoại vi** (VD: bàn phím, ổ cứng).  
+  - **Module I/O**: Trung gian kết nối thiết bị với CPU/bộ nhớ.  
+- **Liên kết vật lý**:  
+  - Dùng cáp (USB, SATA) hoặc không dây (Wi-Fi, Bluetooth).  
 
 ---
 
-### **Slide 4: Phân loại thiết bị ngoại vi**  
-1. **Human-Readable**:  
-   - Ví dụ: Bàn phím, màn hình, máy in.  
-2. **Machine-Readable**:  
-   - Ví dụ: Ổ cứng, cảm biến, robot.  
-3. **Communication Devices**:  
-   - Ví dụ: Modem, card mạng.  
-- **Hình ảnh**: Sơ đồ Hình 8.2 (Block Diagram of an External Device).  
+### **8.2: Phân loại thiết bị ngoại vi**
+- **3 nhóm chính**:  
+  1. **Human-readable** (Giao tiếp với người):  
+     - Ví dụ: Màn hình, máy in, bàn phím.  
+     - **Đặc điểm**: Dùng mã hóa ký tự (IRA, Unicode).  
+  2. **Machine-readable** (Giao tiếp với thiết bị):  
+     - Ví dụ: Ổ cứng, cảm biến nhiệt độ.  
+     - **Đặc điểm**: Truyền dữ liệu nhị phân tốc độ cao.  
+  3. **Communication** (Kết nối mạng):  
+     - Ví dụ: Modem, card Ethernet.  
+     - **Đặc điểm**: Hỗ trợ giao thức mạng (TCP/IP).  
 
 ---
 
-### **Slide 5: Ví dụ - Bàn phím & Màn hình**  
-- **Mã IRA**: 7-bit (128 ký tự).  
-- **Quy trình nhập**: Phím → Tín hiệu điện → Mã IRA → I/O Module.  
-- **Quy trình xuất**: Mã IRA → Màn hình hiển thị.  
-- **Hình ảnh**: Minh họa từ slide (Keyboard/Display Interface).  
+### **8.3: Module I/O và kỹ thuật I/O**
+- **Chức năng module I/O**:  
+  - Điều khiển thiết bị, đệm dữ liệu, phát hiện lỗi.  
+- **3 kỹ thuật I/O**:  
+  | **Kỹ thuật**       | **Mô tả**                                  | **Ví dụ**                     |
+  |--------------------|--------------------------------------------|-------------------------------|
+  | Programmed I/O     | CPU trực tiếp điều khiển từng bước.        | Đọc phím bấm từ bàn phím.     |
+  | Interrupt-Driven   | CPU nhận ngắt khi thiết bị sẵn sàng.       | Xử lý chuột di chuyển.        |
+  | DMA                | Truyền dữ liệu trực tiếp không qua CPU.    | Sao chép file lớn vào RAM.    |
 
 ---
 
-### **Slide 6: Programmed I/O**  
-- **Nguyên lý**: CPU trực tiếp điều khiển I/O (đọc/ghi từng byte).  
-- **Ưu điểm**: Đơn giản.  
-- **Nhược điểm**: CPU phải chờ → Hiệu suất thấp.  
-- **Hình ảnh**: Minh họa Hình 8.4 (Programmed I/O Data Flow).  
+### **8.4: Các lệnh I/O (I/O Commands)**
+- **4 loại lệnh**:  
+  1. **Control**: Khởi động/dừng thiết bị (VD: quay ổ đĩa).  
+  2. **Test**: Kiểm tra trạng thái (VD: ổ đĩa đã sẵn sàng?).  
+  3. **Read**: Đọc dữ liệu từ thiết bị.  
+  4. **Write**: Ghi dữ liệu ra thiết bị.  
 
 ---
 
-### **Slide 7: Interrupt-Driven I/O**  
-- **Nguyên lý**: CPU xử lý tác vụ khác → Bị ngắt khi I/O hoàn thành.  
-- **Phương pháp xác định thiết bị**:  
-  - Daisy Chain, Bus Arbitration (Vectored Interrupt).  
-- **Hình ảnh**: Sơ đồ Hình 8.6 (Simple Interrupt Processing).  
+### **8.5: Ánh xạ I/O (I/O Mapping)**
+- **Memory-Mapped I/O**:  
+  - Thiết bị và bộ nhớ dùng chung địa chỉ.  
+  - **Ưu điểm**: Lập trình đơn giản (dùng lệnh load/store).  
+- **Isolated I/O**:  
+  - Không gian địa chỉ riêng cho I/O.  
+  - **Ưu điểm**: Tránh xung đột bộ nhớ.  
 
 ---
 
-### **Slide 8: Direct Memory Access (DMA)**  
-- **Nguyên lý**: I/O Module trao đổi trực tiếp với bộ nhớ.  
-- **Ưu điểm**: Giảm tải CPU, phù hợp truyền khối dữ liệu lớn.  
-- **Cấu hình**: Fly-By, Bus Sharing.  
-- **Hình ảnh**: Sơ đồ Hình 8.12 (Typical DMA Block Diagram).  
+### **8.6: Xử lý ngắt (Interrupt Handling)**
+- **Quy trình**:  
+  1. Thiết bị gửi tín hiệu ngắt.  
+  2. CPU lưu trạng thái hiện tại.  
+  3. Thực thi ISR (Interrupt Service Routine).  
+  4. Khôi phục trạng thái và tiếp tục chương trình.  
+- **Phương pháp ưu tiên ngắt**:  
+  - **Daisy Chain**: Thiết bị gần CPU được ưu tiên.  
+  - **Bus Arbitration**: Thiết bị tranh chấp bus.  
 
 ---
 
-### **Slide 9: Direct Cache Access (DCA)**  
-- **Mục đích**: Giải quyết tắc nghẽn khi DMA không đủ nhanh (10/100 Gbps Ethernet).  
-- **Cơ chế**: Đưa dữ liệu thẳng vào cache.  
-- **Hình ảnh**: So sánh DMA vs. DCA (Hình 8.17 từ slide).  
+### **8.7: DMA (Direct Memory Access)**
+- **Cơ chế hoạt động**:  
+  - CPU ủy quyền cho DMA controller truyền dữ liệu.  
+  - DMA chiếm quyền điều khiển bus hệ thống.  
+- **Ứng dụng**:  
+  - Truyền file dung lượng lớn, stream video.  
 
 ---
 
-### **Slide 10: So sánh các kỹ thuật I/O**  
-| **Kỹ thuật**       | **Ưu điểm**               | **Nhược điểm**               |  
-|---------------------|---------------------------|-------------------------------|  
-| Programmed I/O      | Đơn giản                  | CPU luôn bận                 |  
-| Interrupt-Driven I/O| CPU rảnh hơn              | Overhead do ngắt              |  
-| DMA                 | Tốc độ cao                | Phức tạp, cần DMA Controller |  
+### **8.8: Direct Cache Access (DCA)**
+- **Giải quyết vấn đề**: Độ trễ khi xử lý dữ liệu mạng tốc độ cao.  
+- **Cách thức**: NIC ghi trực tiếp dữ liệu vào CPU cache.  
+- **Hiệu quả**: Giảm 30–50% độ trễ so với DMA truyền thống.  
 
 ---
 
-### **Slide 11: Chuẩn kết nối ngoại vi (Cập nhật 2024)**  
-- **USB4**: 40 Gbps (Thunderbolt 3 tích hợp).  
-- **Thunderbolt 5**: 80 Gbps (2023). 
-- **Wi-Fi 7**: 46 Gbps, độ trễ thấp.  
-- **Ethernet 800G**: Dùng trong data center.  
-- **Hình ảnh**: Biểu đồ tốc độ qua các thế hệ.  
+### **8.9: Các chuẩn kết nối ngoại vi**
+- **So sánh chuẩn phổ biến**:  
+  | **Chuẩn**      | **Tốc độ**       | **Ứng dụng**                  |
+  |---------------|------------------|-------------------------------|
+  | USB 3.1       | 10 Gbps          | Ổ SSD, webcam.                |
+  | Thunderbolt 3 | 40 Gbps          | Màn hình 8K, RAID storage.    |
+  | PCIe 4.0      | 64 GB/s          | Card đồ họa, NVMe SSD.        |
 
 ---
 
-### **Slide 12: Xu hướng phát triển I/O**  
-- **I/O Channel Architecture**: Biến I/O Module thành bộ xử lý độc lập (IBM z13).  
-- **High-Speed Interconnects**: PCIe 5.0 (128 GT/s), NVMe cho SSD.  
-- **Hình ảnh**: Kiến trúc IBM z13 (Hình 8.19 từ slide).  
+### **8.10: Kiến trúc I/O hiện đại**
+- **Ví dụ: IBM z13**:  
+  - Kết hợp **DMA + Channel I/O** để quản lý 64.000 thiết bị.  
+  - Hỗ trợ **InfiniBand** (tốc độ 100 Gbps) cho data center.  
+- **Xu hướng**:  
+  - Chuyển từ bus song song (SCSI) sang chuỗi nối tiếp (USB, Thunderbolt).  
+  - Tích hợp I/O vào chip (SoC) để tiết kiệm năng lượng.  
 
 ---
-
-### **Slide 13: Ứng dụng thực tế**  
-- **USB4**: 1 phút sao chép 4K movie (~20GB).  
-- **Wi-Fi 6E**: Stream 8K không giật.  
-- **Thunderbolt 5**: Kết nối màn hình 8K + SSD tốc độ cao.  
-
----
-
-### **Slide 14: Tóm tắt**  
-1. I/O quyết định hiệu suất hệ thống.  
-2. DMA/DCA tối ưu cho dữ liệu lớn.  
-3. Chuẩn kết nối liên tục phát triển (USB4, Wi-Fi 7).  
-
----
-
-### **Slide 15: Q&A & Tài liệu tham khảo**  
-- **Câu hỏi mở**: "Theo bạn, kỹ thuật I/O nào sẽ thống trị trong tương lai?"  
-- **Tài liệu**:  
-  - Sách giáo trình (Chapter 8).  
-  - IEEE Standards (USB4, Wi-Fi 7).  
-- **Hình ảnh**: Icon hỏi đáp.  
-
----
-
-### Gợi ý thiết kế:  
-- **Màu sắc**: Xanh dương (công nghệ) + cam (nổi bật).  
-- **Hình ảnh**: Dùng sơ đồ từ slide gốc, thêm biểu đồ tốc độ tự vẽ.  
-- **Animation**: Hiệu ứng xuất hiện từng bullet point. 
