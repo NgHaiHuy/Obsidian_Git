@@ -90,5 +90,3 @@ Cứ **thêm một số 0** thì giá trị nhân **gấp đôi**.
     
 
 ---
-
-Nếu bạn muốn mình **giải giúp 1 số cụ thể**, bạn chỉ cần gửi số đó (nhị phân hoặc thập phân), mình sẽ làm giúp bạn luôn!

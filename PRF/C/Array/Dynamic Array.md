@@ -98,5 +98,3 @@ int main() {
 |Cần cấp phát lớn, mềm dẻo hơn|Cách 1 (malloc)|
 
 ---
-
-Bạn muốn mình hướng dẫn cách viết hàm nhập mảng & tính tổng/giá trị lớn nhất từ đầu vào không?
