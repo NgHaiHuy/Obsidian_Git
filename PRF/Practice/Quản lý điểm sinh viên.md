@@ -28,7 +28,7 @@ Viết chương trình quản lý điểm của một lớp học (tối đa 50 
 - Chương trình phải có **menu lựa chọn** để người dùng thao tác.  
 
 **Gợi ý cấu trúc:**  
-1. Khai báo mảng sinh viên (dùng con trỏ).  
+1. Khai báo dữ liệu sinh viên (dùng struct).  
 2. Hàm nhập dữ liệu.  
 3. Hàm hiển thị danh sách.  
 4. Hàm sắp xếp (Selection Sort tăng dần).  
