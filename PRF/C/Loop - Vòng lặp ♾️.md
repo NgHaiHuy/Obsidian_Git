@@ -10,11 +10,11 @@ Vòng lặp dùng để **thực hiện một khối lệnh lặp đi lặp lạ
 
 ## 🌀 **2. Các loại vòng lặp trong C**
 
-|Tên vòng lặp|Khi nào dùng?|
-|---|---|
-|`for`|Biết số lần lặp trước|
-|`while`|Không biết trước số lần lặp|
-|`do...while`|Muốn chạy ít nhất một lần|
+| Tên vòng lặp | Khi nào dùng?               |
+| ------------ | --------------------------- |
+| `for`        | Biết số lần lặp trước       |
+| `while`      | Không biết trước số lần lặp |
+| `do...while` | Muốn chạy ít nhất một lần   |
 
 ---
 
